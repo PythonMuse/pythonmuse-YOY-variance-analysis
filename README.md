@@ -4,6 +4,18 @@
 >
 > **This repo** is one of those patterns — Varia, a variance-analysis co-pilot that compares two trial balance periods, flags what's actually worth a human's attention, and shows its work.
 
+## ⚠️ Training & Demo Purposes Only
+
+This repository is a **training and demonstration template**. All data is synthetic, built for a fictional company (CodeCritters Inc.), and constructed specifically to illustrate variance patterns — it does not represent real financials.
+
+**This is not production software.** Before using any part of this pattern on real data in your own environment, your team must:
+
+- **Review the logic in detail** — the classification rules, comparison passes, and reconciliation checks in `skills/trial-balance-comparison/scripts/generate_visuals.py` encode assumptions (a QuickBooks-style chart of accounts, two specific contra accounts, a Jan–Apr period) that will not match your ledger as-is.
+- **Validate the thresholds** — the $2,500 / 15% / 20% materiality bars are demo values, not a recommendation. Set them against your own organization's materiality standards.
+- **Test end-to-end in your environment** — with your own chart of accounts, your own period range, and your own reviewers checking the output against a manual calculation before anyone relies on it.
+
+Provided as-is, without warranty of any kind, under the [MIT License](LICENSE).
+
 This repo builds an agent-run Year-over-Year and Month-over-Month trial
 balance comparison for a fictional company, **CodeCritters Inc.** — two
 QuickBooks-style trial balances, Jan–Apr 2025 (prior year) and Jan–Apr 2026
@@ -111,10 +123,14 @@ pythonmuse-YOY-variance-analysis/
 │   └── varia_variance_agent.md        # step-by-step execution instructions
 │
 ├── skills/
-│   └── trial-balance-comparison/
-│       ├── SKILL.md                   # comparison logic, inputs/outputs, steps
+│   ├── trial-balance-comparison/
+│   │   ├── SKILL.md                   # comparison logic, inputs/outputs, steps
+│   │   └── scripts/
+│   │       └── generate_visuals.py    # the comparison + charts + Excel report
+│   └── excel-export-standard/
+│       ├── SKILL.md                   # the Excel formatting standard, documented
 │       └── scripts/
-│           └── generate_visuals.py    # the comparison + charts + Excel report
+│           └── build_formatting_standard_demo.py  # teaching workbook: formula vs. hardcoded
 │
 ├── scripts/
 │   └── build_sample_data.py           # regenerates the two source CSVs (not part of the analysis)
@@ -129,7 +145,8 @@ pythonmuse-YOY-variance-analysis/
     │   ├── 02_yoy_variance_by_account.png
     │   └── 03_flagged_accounts_trend.png
     └── excel/
-        └── CodeCritters_TB_Comparison_Report.xlsx
+        ├── CodeCritters_TB_Comparison_Report.xlsx
+        └── formatting_standard_demo.xlsx
 ```
 
 ---
@@ -141,12 +158,21 @@ pip install -r requirements.txt
 python3 skills/trial-balance-comparison/scripts/generate_visuals.py
 ```
 
+> On Windows, use `python` (or `py`) in place of `python3` throughout.
+
 Everything downstream of the two CSVs regenerates from scratch — thresholds
 included, at the top of the script. To rebuild the sample source data itself
 from scratch, run `python3 scripts/build_sample_data.py`.
+
+To see the Excel formatting standard demonstrated on its own — a compliant
+formula next to the hardcoded-value anti-pattern it exists to prevent — run:
+
+```bash
+python3 skills/excel-export-standard/scripts/build_formatting_standard_demo.py
+```
 
 ---
 
 ## AI Usage Notice
 
-This demo's sample data is synthetic and built to illustrate specific variance patterns — it does not represent a real company or real financials. Validate any thresholds or logic against your own organization's materiality standards before reusing this pattern on real data.
+This demo's sample data is synthetic and built to illustrate specific variance patterns — it does not represent a real company or real financials. Validate any thresholds or logic against your own organization's materiality standards before reusing this pattern on real data — see the [Training & Demo Purposes Only](#️-training--demo-purposes-only) section at the top of this README for the full checklist.

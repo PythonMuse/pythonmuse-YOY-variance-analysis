@@ -314,7 +314,6 @@ def autosize(ws, widths):
 # ---- TB_2025 / TB_2026 (raw source, read-only in spirit - Rule 9) ----
 
 def write_tb_sheet(ws, df, year_label):
-    ws.title = ws.title
     ws.cell(row=1, column=1, value=f"Trial Balance - {year_label} (source data, do not edit)").font = TITLE_FONT
     write_header(ws, 2, ["Account Code", "Account", "Type"] + MONTHS)
     for i in range(len(df)):
@@ -341,7 +340,7 @@ MONTH_COL = {m: get_column_letter(4 + j) for j, m in enumerate(MONTHS)}  # Jan=D
 
 dash = wb.create_sheet("Dashboard", 0)
 dash.cell(row=1, column=1, value="CodeCritters Inc. - Trial Balance Comparison Dashboard").font = Font(bold=True, size=16, color=DEEP_NAVY.lstrip("#"))
-dash.cell(row=2, column=1, value="PythonMuse LLC | Article 33: Two Trial Balances Walk Into a Spreadsheet").font = Font(italic=True, size=10)
+dash.cell(row=2, column=1, value="PythonMuse LLC | Training & Demo Template").font = Font(italic=True, size=10)
 
 dash.cell(row=4, column=1, value="Materiality Thresholds").font = Font(bold=True, size=12, color=PANEL_NAVY.lstrip("#"))
 write_header(dash, 5, ["Comparison", "$ Threshold", "% Threshold"])

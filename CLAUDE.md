@@ -58,10 +58,14 @@ pythonmuse-YOY-variance-analysis/            ← project root
 ├── agents/
 │   └── varia_variance_agent.md              ← step-by-step operational instructions for Varia
 ├── skills/
-│   └── trial-balance-comparison/
-│       ├── SKILL.md                         ← the Comparison Skill (see below)
+│   ├── trial-balance-comparison/
+│   │   ├── SKILL.md                         ← the Comparison Skill (see below)
+│   │   └── scripts/
+│   │       └── generate_visuals.py
+│   └── excel-export-standard/
+│       ├── SKILL.md                         ← documents + demos the Excel formatting standard
 │       └── scripts/
-│           └── generate_visuals.py
+│           └── build_formatting_standard_demo.py
 ├── scripts/
 │   └── build_sample_data.py                 ← sample-data generator, not part of the analysis itself
 ├── data/
@@ -70,7 +74,8 @@ pythonmuse-YOY-variance-analysis/            ← project root
 └── outputs/
     ├── visuals/                             ← chart outputs (regenerated each run)
     └── excel/
-        └── CodeCritters_TB_Comparison_Report.xlsx   ← Excel deliverable (regenerated each run)
+        ├── CodeCritters_TB_Comparison_Report.xlsx   ← Excel deliverable (regenerated each run)
+        └── formatting_standard_demo.xlsx            ← teaching workbook (regenerated each run)
 ```
 
 ---
@@ -82,6 +87,8 @@ If the user asks Varia to "run the comparison" or "regenerate the report," read 
 For the step-by-step execution sequence (confirm sources → reconcile → run → verify → report), see `agents/varia_variance_agent.md`.
 
 If asked to extend the workflow (e.g., add a budget-vs-actual pass, add more months, add a new account), update the script — don't produce a one-off manual calculation that the script can't reproduce next time.
+
+`skills/excel-export-standard/SKILL.md` documents the formatting standard the Excel workbook above follows (header style, number formats, and Rule 8's formula-not-value requirement), and its script builds a small teaching workbook that shows a compliant formula next to the hardcoded-value anti-pattern side by side. Read it before adding a new Excel-exporting skill, or use it in a demo to make Rule 8 concrete.
 
 ---
 
